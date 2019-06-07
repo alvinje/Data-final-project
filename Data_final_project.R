@@ -1,6 +1,4 @@
+csv <- fread("data_DC.csv", encoding = "Latin-1")
 
-print('Welcome to the final project of data schedule')
-
-#super commentaire
-
-csv <- fread("data_DC.csv")
+#Afficher le csv
+summary(csv)
