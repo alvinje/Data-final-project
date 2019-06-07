@@ -82,6 +82,7 @@ colnames(csv)
 #evt <- 2019
 #time_length(interval(naiss, evt))
 
+# Calcul de l'âge réel et stockage du résultat dans une nouvelle colonne
 csv$vrai_age <- 2019 - csv$age
 
 data_age <- plot_ly(data = csv, x=~actual_age,type="histogram")
