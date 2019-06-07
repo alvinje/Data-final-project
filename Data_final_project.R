@@ -11,7 +11,9 @@ csv <- fread("data_DC.csv")
 colnames(csv)
 
 # Remove duplicated column by index.
-csv[,32] <- NULL
+#csv[,32] <- NULL
+colnames(csv)[32] <- "specialisation_pro_1"
+
 
 # Rename columns with Dplyr package.
 csv <- csv %>% rename(
@@ -64,16 +66,28 @@ csv <- csv %>% rename(
      )
 colnames(csv)
 
-  csv$annee_naissance[csv$annee_naissance == 996] <- 1996
+# Adapt data to factor if necessary.
+col_departements_is_factor = c("dept_premier_emploi", "departement_travail")
+for (col in colnames(csv)){
+  if ( class(csv[[col]]) == "character" || col %in% col_departements_is_factor){
+    csv[[col]] = as.factor(csv[[col]])
+  }
+}
 
-  csv$annee_naissance <- revalue(csv$annee_naissance, c("996"="1996"))
 
-
-
-
-summary(csv)
 class(csv$nationalite)
 
+# Change 996 to 1996 due to an error of user.
 csv <- csv %>% mutate(annee_naissance = ifelse(annee_naissance == 996, 1996, annee_naissance))
-head(csv)
 
+# Change value of nationalite for multiple cases (ifelse imbriqued).
+csv <- csv %>% mutate(nationalite = ifelse(nationalite == "ALLEMAND", "DE", 
+                                           ifelse(nationalite == "FRANCAISE" | nationalite == "France", "FR", as.character(nationalite))))
+
+# Change gender corrupted data.
+csv <- csv %>% mutate(genre = ifelse(genre == "femme", "f", 
+                                           ifelse(genre == "homme", "h", as.character(genre))))
+csv$nationalite <- as.factor(csv$nationalite)
+csv$genre <- as.factor(csv$genre)
+summary(csv)
+head(csv)
