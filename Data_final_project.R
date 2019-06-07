@@ -7,7 +7,12 @@ library(tidyverse)
 library(plotly)
 library(ggplot2)
 library(data.table)
-csv <- fread("data_DC.csv", encoding = "Latin-1")
+csv <- fread("data_DC.csv", encoding = "WINDOWS-1252")
+
+library(readr)
+csv <- read_delim("data_DC.csv", ";", 
+                      escape_double = FALSE, locale = locale(encoding = "WINDOWS-1252"), 
+                      trim_ws = TRUE)
 
 
 # get column names
@@ -50,22 +55,22 @@ csv <- csv %>% rename(
   reco_dc = "Recommanderiez-vous Digital Campus à d'autres personnes sur une échelle de 0 à 5 ?",
   recherche_emploi_apr_dc = "Avez-vous cherché un emploi à la fin de vos études ?",
   non_pq = "Non, pourquoi ?",
-  tps_recherche_emploi = "Combien de temps a duré votre recherche d\u0092emploi ?",
+  tps_recherche_emploi = "Combien de temps a duré votre recherche d’emploi ?",
   spe_pro = "Quelle est votre spécialisation professionnelle ?",
   type_contrat_apr_dc = "Quel était le type de contrat ?",
   tps_plein_partiel = "Était-ce à temps plein ou à temps partiel ?",
-  salaire_embauche_apr_dc = "Quel était votre salaire à l\u0092embauche ?",
+  salaire_embauche_apr_dc = "Quel était votre salaire à l’embauche ?",
   emploi_priv_pub = "Votre emploi était-il dans le privé ou dans le public ?",
   csp_apr_dc = "A quelle catégorie socio-professionnelle apparteniez-vous ?",
-  type_entreprise = "Dans quel type d\u0092entreprise étiez-vous?",
+  type_entreprise = "Dans quel type d’entreprise étiez-vous?",
   dept_premier_emploi = "Dans quel département avez-vous trouvé votre premier emploi ?",
   milieu = "Dans quel milieu ?",
   change_ville_pr_emploi = "Aviez-vous changé de ville pour décrocher cet emploi ?",
   cmt_trouve_emploi_apr_dc = "Comment aviez-vous trouvé votre travail ?",
-  perception_recherche_emploi_apr_dc = "Comment aviez-vous perçu votre recherche d\u0092emploi ?",
+  perception_recherche_emploi_apr_dc = "Comment aviez-vous perçu votre recherche d’emploi ?",
   satisfaction_premier_emploi = "Aviez-vous été satisfait de ce premier emploi?",
   place_travail_vie = "Quelle place occupe votre travail dans votre vie?",
-  estimation_importance_dc_recrutement = "A combien estimez vous l\u0092importance de digital campus dans votre recrutement?"
+  estimation_importance_dc_recrutement = "A combien estimez vous l’importance de digital campus dans votre recrutement?"
     )
 colnames(csv)
 
