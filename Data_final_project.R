@@ -104,9 +104,14 @@ csv <- csv %>% mutate(formation_DC = ifelse(formation_DC == "Bacelor", "Bachelor
 csv <- csv %>% mutate(ville_formation_DC = ifelse(ville_formation_DC == "lyon", "Lyon",
                                      ifelse(ville_formation_DC == "paris", "Paris", as.character(ville_formation_DC))))
 
+# Set data as factor.
 csv$nationalite <- as.factor(csv$nationalite)
 csv$genre <- as.factor(csv$genre)
 csv$formation_DC <- as.factor(csv$formation_DC)
+csv$ville_formation_DC <- as.factor(csv$ville_formation_DC)
+
+# Remove NA from annee naissance.
+csv <- csv %>% filter(!is.na(annee_naissance))
 summary(csv)
 head(csv)
 
