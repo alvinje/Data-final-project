@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6e521c2-a51d-40e7-8936-47e1d948c705" name="Default Changelist" comment="" />
+    <list default="true" id="d6e521c2-a51d-40e7-8936-47e1d948c705" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Data_final_project.R" beforeDir="false" afterPath="$PROJECT_DIR$/Data_final_project.R" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_DC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data_DC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/~$data_DC.xlsx" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,8 +47,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data_final_project.R">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
+            <state relative-caret-position="595">
+              <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -162,8 +166,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Data_final_project.R">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
+        <state relative-caret-position="595">
+          <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
         </state>
       </provider>
     </entry>
