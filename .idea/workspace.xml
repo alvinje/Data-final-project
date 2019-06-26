@@ -48,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data_final_project.R">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="376" lean-forward="true" selection-start-line="376" selection-end-line="376" />
+            <state relative-caret-position="714">
+              <caret line="367" lean-forward="true" selection-start-line="367" selection-end-line="367" />
             </state>
           </provider>
         </entry>
@@ -127,12 +127,12 @@
       <updated>1559908252993</updated>
       <workItem from="1559908254479" duration="2410000" />
       <workItem from="1561536569836" duration="21000" />
-      <workItem from="1561543042620" duration="1380000" />
+      <workItem from="1561543042620" duration="2263000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3944000" />
+    <option name="totallyTimeSpent" value="4827000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -171,8 +171,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Data_final_project.R">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="376" lean-forward="true" selection-start-line="376" selection-end-line="376" />
+        <state relative-caret-position="714">
+          <caret line="367" lean-forward="true" selection-start-line="367" selection-end-line="367" />
         </state>
       </provider>
     </entry>
