@@ -33,9 +33,27 @@ tb <- ggplot(typeBac, aes(x="", y=freq, fill=Quel.type.de.Bac.avez.vous.obtenu..
 # comme le total est egal a 100
 tb + coord_polar("y", start=0) +
   geom_text(aes(y = lab.ypos, label = paste0(freq,'%')), color = "white") +
-  labs(fill = "Type de bac") + labs(x = "") + labs(y = "")
+  labs(fill = "Types de bac") + labs(x = "") + labs(y = "") +
+  scale_fill_manual(values=c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B")) +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid  = element_blank()) +
+  theme(panel.background = element_blank())
 
 #ii Annee d'obtention du BAC
+#impossible de savoir precisemment quand ils ont eu leur bac
+#alors on va considerer qu'ils l'ont eu a 18 ans
+AnneeObtentionBac <-  data.frame(csv$'Quelle est votre année de naissance ?' + 18)
+names(AnneeObtentionBac)[1] <- 'annee_obtention'
+#calcul du nombre de personne ayant obtenu le bac la meme annee
+AnneeObtentionBac <- AnneeObtentionBac %>%
+  group_by(annee_obtention)%>%
+  count()
+#affichage goem bar annee obtention
+ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=freq)) + 
+  geom_bar(stat = 'identity', width = 2, color = "#2AA4AC") +
+  geom_text(aes(label = freq), vjust = 1.5, size = 5)
+
 
 
 
