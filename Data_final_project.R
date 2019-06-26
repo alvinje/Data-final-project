@@ -57,8 +57,8 @@ ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=freq)) +
   ggtitle("Nombre d'étudiants en fonction de l'année d'obtention du bac") +
   theme(plot.title = element_text(size = 15, face = "bold"))
 
-#ii b)
-#Parcours DC, type de formation suivie
+#II b)
+#i Parcours DC, type de formation suivie
 typeFormation <-  data.frame(csv$'Quelle formation avez-vous suivi à Digital Campus ?')
 names(typeFormation)[1] <- 'type_formation'
 #calcul du nombre de personnes en fonction du type de formation
@@ -72,5 +72,7 @@ ggplot(data = typeFormation, aes(x=type_formation, y=freq)) +
         axis.title.y = element_blank()) +
   ggtitle("Nombre d'étudiants en fonction du type de formation suivie à Digital Campus") +
   theme(plot.title = element_text(size = 12, face = "bold"))
+
+
 
 
