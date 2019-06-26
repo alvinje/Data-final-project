@@ -3,82 +3,96 @@ print('Welcome to the final project of data schedule')
 
 # Patch encoding Mac.
 Sys.setlocale(category = "LC_ALL", locale = "fr_FR.UTF-8")
+install.packages("gridExtra")
+install.packages("cowplot")
+install.packages("xlsx")
+setwd("D:/Desktop/Data-final-project")
 library(tidyverse)
 library(plotly)
 library(ggplot2)
 library(data.table)
 library(readr)
-
-install.packages("gridExtra")
-library("gridExtra")
-install.packages("cowplot")
-library("cowplot")
-
+library(questionr)
+library(gridExtra)
+library(cowplot)
 library(ggplot2)
 library(dplyr)
 
-setwd("D:/Desktop/Data-final-project")
+Packages <- c("dplyr", "tidyverse", "plotly", "ggplot2", "data.table", "readr", "questionr", "gridExtra", "cowplot", "xlsx")
 
-csv = read_delim("data_DC.csv", ";",
+lapply(Packages, library, character.only = TRUE)
+
+
+# Load original Data.
+#csv <- read_delim("data_DC.csv", ";",
+#                      escape_double = FALSE, locale = locale(encoding = "WINDOWS-1252"),
+#                      trim_ws = TRUE)
+
+# Load renamed Data.
+csv <- read_delim("renamedData.csv", ",",
                       escape_double = FALSE, locale = locale(encoding = "WINDOWS-1252"),
                       trim_ws = TRUE)
+
 # get column names
 colnames(csv)
 
 # Remove duplicated column by index.
 #csv[,32] <- NULL
-colnames(csv)[32] <- "specialisation_pro_1"
+#colnames(csv)[32] <- "specialisation_pro_1"
 
 
 # Rename columns with Dplyr package.
-csv <- csv %>% rename(
-  annee_naissance = "Quelle est votre année de naissance ?",
-  genre = "Vous êtes ?",
-  nationalite = "Quel est votre nationalité ?",
-  departement_travail = "Dans quel département travaillez-vous ?",
-  situation_pro = "Quelle est votre situation professionnelle ?",
-  specialisation_pro = "Quelle est votre spécialisation professionnelle ?",
-  diplome_actuel =  "Quelle est votre niveau de diplôme actuel ?",
-  tranche_salaire = "Quelle est votre tranche de salaire ?",
-  type_bac = "Quel type de Bac avez-vous obtenu ?",
-  annee_dernier_diplome_avant_DC = "En quelle année avez-vous obtenu votre dernier diplôme avant Digital Campus ?",
-  dernier_diplome_avant_dc = "Quel est votre dernier niveau d'étude obtenu ?",
-  formation_DC = "Quelle formation avez-vous suivi à Digital Campus ?",
-  ville_formation_DC = "Dans quelle ville avez-vous fait votre formation Digital Campus ?",
-  annee_debut_DC = "En quelle année avez-vous rejoint Digital Campus ?",
-  annee_fin_DC = "En quelle année avez-vous quitté Digital Campus ?",
-  niveau_avt_dc_crea = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Créatif]",
-  niveau_avt_dc_mkt_com = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Marketing et communication]",
-  niveau_avt_dc_dev = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Developpement]",
-  niveau_avt_dc_gest = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Gestion de projet]",
-  niveau_apr_dc_crea = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Créatif]",
-  niveau_apr_dc_mkt_com = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Marketing et communication]",
-  niveau_apr_dc_dev = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Developpement]",
-  niveau_apr_dc_gest = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Gestion de projet]",
-  spe = "Quelle spécialité avez-vous choisi ?",
-  spe_ok = "Votre spécialité a-t-elle répondu à vos attentes ?",
-  tps_trouve_alt = "En combien de temps avez-vous trouvé votre alternance ?",
-  sourcing_alt = "Comment avez-vous trouvé votre alternance ?",
-  reco_dc = "Recommanderiez-vous Digital Campus à d'autres personnes sur une échelle de 0 à 5 ?",
-  recherche_emploi_apr_dc = "Avez-vous cherché un emploi à la fin de vos études ?",
-  non_pq = "Non, pourquoi ?",
-  tps_recherche_emploi = "Combien de temps a duré votre recherche d'emploi ?",
-  spe_pro = "Quelle est votre spécialisation professionnelle ?",
-  type_contrat_apr_dc = "Quel était le type de contrat ?",
-  tps_plein_partiel = "Était-ce à temps plein ou à temps partiel ?",
-  salaire_embauche_apr_dc = "Quel était votre salaire à l'embauche ?",
-  emploi_priv_pub = "Votre emploi était-il dans le privé ou dans le public ?",
-  csp_apr_dc = "A quelle catégorie socio-professionnelle apparteniez-vous ?",
-  type_entreprise = "Dans quel type d'entreprise étiez-vous?",
-  dept_premier_emploi = "Dans quel département avez-vous trouvé votre premier emploi ?",
-  milieu = "Dans quel milieu ?",
-  change_ville_pr_emploi = "Aviez-vous changé de ville pour décrocher cet emploi ?",
-  cmt_trouve_emploi_apr_dc = "Comment aviez-vous trouvé votre travail ?",
-  perception_recherche_emploi_apr_dc = "Comment aviez-vous perçu votre recherche d'emploi ?",
-  satisfaction_premier_emploi = "Aviez-vous été satisfait de ce premier emploi?",
-  place_travail_vie = "Quelle place occupe votre travail dans votre vie?",
-  estimation_importance_dc_recrutement = "A combien estimez vous l'importance de digital campus dans votre recrutement?"
-)
+#csv <- csv %>% rename(
+#  annee_naissance = "Quelle est votre année de naissance ?",
+#  genre = "Vous êtes ?",
+#  nationalite = "Quel est votre nationalité ?",
+#  departement_travail = "Dans quel département travaillez-vous ?",
+#  situation_pro = "Quelle est votre situation professionnelle ?",
+#  specialisation_pro = "Quelle est votre spécialisation professionnelle ?",
+#  diplome_actuel =  "Quelle est votre niveau de diplôme actuel ?",
+#  tranche_salaire = "Quelle est votre tranche de salaire ?",
+#  type_bac = "Quel type de Bac avez-vous obtenu ?",
+#  annee_dernier_diplome_avant_DC = "En quelle année avez-vous obtenu votre dernier diplôme avant Digital Campus ?",
+#  dernier_diplome_avant_dc = "Quel est votre dernier niveau d'étude obtenu ?",
+#  formation_DC = "Quelle formation avez-vous suivi à Digital Campus ?",
+#  ville_formation_DC = "Dans quelle ville avez-vous fait votre formation Digital Campus ?",
+#  annee_debut_DC = "En quelle année avez-vous rejoint Digital Campus ?",
+#  annee_fin_DC = "En quelle année avez-vous quitté Digital Campus ?",
+#  niveau_avt_dc_crea = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Créatif]",
+#  niveau_avt_dc_mkt_com = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Marketing et communication]",
+#  niveau_avt_dc_dev = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Developpement]",
+#  niveau_avt_dc_gest = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Gestion de projet]",
+#  niveau_apr_dc_crea = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Créatif]",
+#  niveau_apr_dc_mkt_com = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Marketing et communication]",
+#  niveau_apr_dc_dev = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Developpement]",
+#  niveau_apr_dc_gest = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Gestion de projet]",
+#  spe = "Quelle spécialité avez-vous choisi ?",
+#  spe_ok = "Votre spécialité a-t-elle répondu à vos attentes ?",
+#  tps_trouve_alt = "En combien de temps avez-vous trouvé votre alternance ?",
+#  sourcing_alt = "Comment avez-vous trouvé votre alternance ?",
+#  reco_dc = "Recommanderiez-vous Digital Campus à d'autres personnes sur une échelle de 0 à 5 ?",
+#  recherche_emploi_apr_dc = "Avez-vous cherché un emploi à la fin de vos études ?",
+#  non_pq = "Non, pourquoi ?",
+#  tps_recherche_emploi = "Combien de temps a duré votre recherche d'emploi ?",
+#  spe_pro = "Quelle est votre spécialisation professionnelle ?",
+#  type_contrat_apr_dc = "Quel était le type de contrat ?",
+#  tps_plein_partiel = "Était-ce à temps plein ou à temps partiel ?",
+#  salaire_embauche_apr_dc = "Quel était votre salaire à l'embauche ?",
+#  emploi_priv_pub = "Votre emploi était-il dans le privé ou dans le public ?",
+#  csp_apr_dc = "A quelle catégorie socio-professionnelle apparteniez-vous ?",
+#  type_entreprise = "Dans quel type d'entreprise étiez-vous?",
+#  dept_premier_emploi = "Dans quel département avez-vous trouvé votre premier emploi ?",
+#  milieu = "Dans quel milieu ?",
+#  change_ville_pr_emploi = "Aviez-vous changé de ville pour décrocher cet emploi ?",
+#  cmt_trouve_emploi_apr_dc = "Comment aviez-vous trouvé votre travail ?",
+#  perception_recherche_emploi_apr_dc = "Comment aviez-vous perçu votre recherche d'emploi ?",
+#  satisfaction_premier_emploi = "Aviez-vous été satisfait de ce premier emploi?",
+#  place_travail_vie = "Quelle place occupe votre travail dans votre vie?",
+#  estimation_importance_dc_recrutement = "A combien estimez vous l'importance de digital campus dans votre recrutement?"
+#)
+
+# Export data to a CSV file to avoid unexcepted error on rename sentence.
+#write.csv(csv, "D:/Desktop/Data-final-project/renamedData.csv", row.names = FALSE)
 
 colnames(csv)
 
@@ -139,16 +153,83 @@ head(csv)
 #evt <- 2019
 #time_length(interval(naiss, evt))
 
-# Calcul de l'Ã¢ge rÃ©el et stockage du rÃ©sultat dans une nouvelle colonne
+# Calcul de l'âge réel et stockage du résultat dans une nouvelle colonne
 csv$age <- 2019 - csv$annee_naissance
 
-data_age <- plot_ly(data = csv, x=~actual_age,type="histogram")
+data_age <- plot_ly(data = csv, x=~age,type="histogram")
+
+#Regroupe les ages en un dataframe
+data_age <- data.frame(csv[,47])
+#compte le nombre de chaque age
+data_age <- data_age %>%
+  group_by(age)%>%
+  count()
+data_age <- data_age %>%
+  arrange(desc(age)) %>%
+  mutate(lab.ypos = cumsum(n) - 0.5*n)
+#graph avec age
+tb_age <- ggplot(data_age, aes(x="", y=n, fill=age))+
+  geom_bar(width = 1, stat = "identity", color = "white")
+#affichage en camembert pour que ça soit plus parlant
+#on peut considerer les resultats comme des pourcentages
+# comme le total est egal a 100
+tb_age + coord_polar("y", start=0) +
+  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
+  labs(fill = "Âge") + labs(x = "") + labs(y = "")
+
 
 ## SEXE
 data_sexe <- plot_ly(data = csv, x=~genre,type="histogram")
 
+#Regroupe les sexes en un dataframe
+#data_sexe <- data.frame(csv[,2])
+#compte le nombre de chaque sexe
+#data_sexe <- data_sexe %>%
+#  group_by(genre)%>%
+#  count()
+#data_sexe2 <- data_sexe %>%
+#  arrange(desc(genre)) %>%
+#  mutate(lab.ypos = cumsum(n) - 0.5 * n)
+#graph avec sexe
+#tb_sexe <- ggplot(data_sexe2, aes(x="", y=n, fill=genre))+
+#  geom_bar(width = 1, stat = "identity", color = "white")+
+#affichage en camembert pour que ça soit plus parlant
+#on peut considerer les resultats comme des pourcentages
+# comme le total est egal a 100
+# coord_polar("y", start=0) +
+#  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
+#  labs(fill = "Sexe") + labs(x = "") + labs(y = "")
+
+# Créer une variable de position
+genre_data <- csv %>%
+  filter(!is.na(genre)) %>%
+  group_by(genre) %>%
+  summarise(nb = n()) %>%
+  mutate(pct = round(nb / sum(nb) * 100)) %>%
+  arrange(desc(genre)) %>%
+  mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+#graph avec genre et labels en pourcentages
+tb_sexe2 <- ggplot(genre_data, aes(x="", y=nb, fill=genre))+
+  geom_bar(width = 1, stat = "identity", color = "white")+
+  coord_polar("y", start=0) +
+  geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
+  labs(fill = "Sexe") + labs(x = "") + labs(y = "")
+
+#pie1 <- pie(genre$pct,labels=paste0(genre$genre,genre$pct,'%'),
+#            cex=0.5)
+
+#pie2 <- ggplot(genre, aes(x = '', y = pct, fill = qualif)) +
+#  geom_bar(width = 1, stat = 'identity') +
+#  coord_polar('y') +
+#  geom_text(aes(y = lab_ypos, label = paste0(pt,'%')))+
+#  theme_void()
+
+
 ## NATIONALITE
 data_nat <- plot_ly(data = csv, x=~nationalite,type="histogram")
+
+
 
 ########## REMI PART ##########
 
@@ -304,3 +385,64 @@ ComparerNiveauCreatifAvantApres()
 ComparerNiveauMarketingAvantApres()
 ComparerNiveauDeveloppementAvantApres()
 ComparerNiveauGestionProjetAvantApres()
+
+############## MARGAUX PART ##############
+#II. Analyse descriptive de leur parcours scolaire
+#A Description du BAC
+#i Type de BAC
+#Regroude les type de bac en un dataframe
+typeBac <- data.frame(csv[,9])
+#compte le nombre de chaque type de bac
+typeBac <- typeBac %>%
+  group_by(type_bac)%>%
+  count()
+typeBac <- typeBac %>%
+  arrange(desc(type_bac)) %>%
+  mutate(lab.ypos = cumsum(n) - 0.5*n)
+#graph avec type de bac
+tb <- ggplot(typeBac, aes(x="", y=n, fill=type_bac))+
+geom_bar(width = 1, stat = "identity", color = "white")
+#affichage en camembert pour que Ã§a soit plus parlant
+#on peut considerer les resultats comme des pourcentages
+# comme le total est egal a 100
+tb + coord_polar("y", start=0) +
+  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
+  labs(fill = "Types de bac") + labs(x = "") + labs(y = "") +
+  scale_fill_manual(values=c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B")) +
+  theme(axis.text = element_blank(),
+  axis.ticks = element_blank(),
+  panel.grid  = element_blank()) +
+  theme(panel.background = element_blank())
+
+#ii Annee d'obtention du BAC
+#impossible de savoir precisemment quand ils ont eu leur bac
+#alors on va considerer qu'ils l'ont eu a 18 ans
+AnneeObtentionBac <-  data.frame(csv$annee_naissance + 18)
+names(AnneeObtentionBac)[1] <- 'annee_obtention'
+#calcul du nombre de personne ayant obtenu le bac la meme annee
+AnneeObtentionBac <- AnneeObtentionBac %>%
+  group_by(annee_obtention)%>%
+  count()
+#affichage goem bar annee obtention
+ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=n)) +
+  geom_bar(stat = 'identity', width = 1, color = "#2AA4AC") +
+  theme(axis.title.x = element_blank(),
+  axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de l'année d'obtention du bac") +
+  theme(plot.title = element_text(size = 15, face = "bold"))
+
+#II b)
+#i Parcours DC, type de formation suivie
+typeFormation <-  data.frame(csv$formation_DC)
+names(typeFormation)[1] <- 'type_formation'
+#calcul du nombre de personnes en fonction du type de formation
+typeFormation <- typeFormation %>%
+  group_by(type_formation)%>%
+  count()
+#affichage goem bar type formation
+ggplot(data = typeFormation, aes(x=type_formation, y=n)) +
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
+  theme(axis.title.x = element_blank(),
+  axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction du type de formation suivie à Digital Campus") +
+  theme(plot.title = element_text(size = 12, face = "bold"))
