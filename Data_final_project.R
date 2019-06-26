@@ -3,33 +3,28 @@ print('Welcome to the final project of data schedule')
 
 # Patch encoding Mac.
 Sys.setlocale(category = "LC_ALL", locale = "fr_FR.UTF-8")
-install.packages("gridExtra")
-install.packages("cowplot")
-install.packages("xlsx")
 setwd("D:/Desktop/Data-final-project")
 
-library(tidyverse)
-library(plotly)
-library(ggplot2)
-library(data.table)
-library(readr)
-library(questionr)
-library(gridExtra)
-library(cowplot)
-library(ggplot2)
-library(dplyr)
 
 Packages <- c("dplyr", "tidyverse", "plotly", "ggplot2", "data.table", "readr", "questionr", "gridExtra", "cowplot")
 
+# Set uninstalled package.
+packagesToInstall <- Packages[!(Packages %in% installed.packages()[,"Package"])]
+
+# Install uninstalled package if true.
+if(length(new.packages)) install.packages(new.packages)
+
+# Add dependency to packages.
 lapply(Packages, library, character.only = TRUE)
 
 
-# Load original Data.
+# Load original Data csv.
 #csv <- read_delim("data_DC.csv", ";",
 #                      escape_double = FALSE, locale = locale(encoding = "WINDOWS-1252"),
 #                      trim_ws = TRUE)
 
-# Load renamed Data.
+
+# Load renamed Data csv.
 csv <- read_delim("renamedData.csv", ",",
                       escape_double = FALSE, locale = locale(encoding = "WINDOWS-1252"),
                       trim_ws = TRUE)
@@ -95,9 +90,11 @@ colnames(csv)
 # Export data to a CSV file to avoid unexcepted error on rename sentence.
 #write.csv(csv, "D:/Desktop/Data-final-project/renamedData.csv", row.names = FALSE)
 
-colnames(csv)
 
-# Adapt data to factor if necessary.
+##### DATA TRAITMENT #####
+
+
+# Convert data to factor if necessary.
 col_departements_is_factor = c("dept_premier_emploi", "departement_travail")
 for (col in colnames(csv)){
   if ( class(csv[[col]]) == "character" || col %in% col_departements_is_factor){
@@ -105,8 +102,6 @@ for (col in colnames(csv)){
   }
 }
 
-
-class(csv$nationalite)
 
 # Change 996 to 1996 due to an error of user.
 csv <- csv %>% mutate(annee_naissance = ifelse(annee_naissance == 996, 1996, annee_naissance))
