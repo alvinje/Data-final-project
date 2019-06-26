@@ -7,6 +7,7 @@ install.packages("gridExtra")
 install.packages("cowplot")
 install.packages("xlsx")
 setwd("D:/Desktop/Data-final-project")
+
 library(tidyverse)
 library(plotly)
 library(ggplot2)
@@ -18,7 +19,7 @@ library(cowplot)
 library(ggplot2)
 library(dplyr)
 
-Packages <- c("dplyr", "tidyverse", "plotly", "ggplot2", "data.table", "readr", "questionr", "gridExtra", "cowplot", "xlsx")
+Packages <- c("dplyr", "tidyverse", "plotly", "ggplot2", "data.table", "readr", "questionr", "gridExtra", "cowplot")
 
 lapply(Packages, library, character.only = TRUE)
 
@@ -116,7 +117,7 @@ csv <- csv %>% mutate(nationalite = ifelse(nationalite == "ALLEMAND", "DE",
 
 # Change gender corrupted data.
 csv <- csv %>% mutate(genre = ifelse(genre == "femme", "f",
-                                           ifelse(genre == "homme", "h", as.character(genre))))
+                                     ifelse(genre == "homme", "h", as.character(genre))))
 
 # Change gender corrupted data.
 csv <- csv %>% mutate(genre = ifelse(genre == "femme", "f",
@@ -128,8 +129,12 @@ csv <- csv %>% mutate(formation_DC = ifelse(formation_DC == "Bacelor", "Bachelor
 
 # Change gender corrupted data.
 csv <- csv %>% mutate(ville_formation_DC = ifelse(ville_formation_DC == "lyon", "Lyon",
-                                     ifelse(ville_formation_DC == "paris", "Paris", as.character(ville_formation_DC))))
+                                                  ifelse(ville_formation_DC == "paris", "Paris", as.character(ville_formation_DC))))
 
+# Delete annee_naissance = 1904
+temp_csv <- with(csv, (annee_naissance == "1904"))
+csv <- csv[!temp_csv, ]
+rm(temp_csv)
 # Set data as factor.
 csv$nationalite <- as.factor(csv$nationalite)
 csv$genre <- as.factor(csv$genre)
