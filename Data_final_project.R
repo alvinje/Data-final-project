@@ -433,5 +433,25 @@ ggplot(data = typeFormation, aes(x=type_formation, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
   theme(axis.title.x = element_blank(),
   axis.title.y = element_blank()) +
-  ggtitle("Nombre d'?tudiants en fonction du type de formation suivie ? Digital Campus") +
+  ggtitle("Nombre d'étudiants en fonction du type de formation suivie à Digital Campus") +
   theme(plot.title = element_text(size = 12, face = "bold"))
+
+############## REMI + SANDRA PART ##############
+
+#chisq.test(csv$genre)
+#t.test(csv$genre ~ csv$type_bac)
+
+# Tests de Khi 2
+chisq.test(csv$genre,csv$type_bac) # p-value = 0.8903
+chisq.test(csv$type_bac,csv$spe) # p-value = 0.6932
+chisq.test(csv$annee_dernier_diplome_avant_DC,csv$dernier_diplome_avant_dc) # p-value = 0.7241
+chisq.test(csv$annee_naissance,csv$salaire_embauche_apr_dc) # p-value = 0.07115
+chisq.test(csv$annee_naissance,csv$departement_travail) # p-value = 0.7926
+chisq.test(csv$annee_naissance,csv$annee_dernier_diplome_avant_DC) # p-value = 0.1434
+
+# Tests de Student
+t.test(csv$age ~ csv$genre) # p-value = 0.8035
+t.test(csv$age ~ csv$recherche_emploi_apr_dc) # p-value = 0.4518
+t.test(csv$age ~ csv$emploi_priv_pub) # p-value = 0.8471
+t.test(csv$age ~ csv$change_ville_pr_emploi) # p-value = 0.3162
+t.test(csv$age ~ csv$spe_ok) # p-value = 0.7572
