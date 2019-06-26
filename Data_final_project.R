@@ -126,6 +126,15 @@ csv <- csv %>% mutate(formation_DC = ifelse(formation_DC == "Bacelor", "Bachelor
 csv <- csv %>% mutate(ville_formation_DC = ifelse(ville_formation_DC == "lyon", "Lyon",
                                                   ifelse(ville_formation_DC == "paris", "Paris", as.character(ville_formation_DC))))
 
+# Change formation_DC corrupted data.
+csv <- csv %>% mutate(formation_DC = ifelse(formation_DC == "Mastere", "Mastère"))
+
+# Change annee_debut_DC corrupted data.
+csv <- csv %>% mutate(annee_debut_DC = ifelse(annee_debut_DC == "2111", "2011"))
+
+# Change annee_fin_DC corrupted data.
+csv <- csv %>% mutate(annee_fin_DC = ifelse(annee_fin_DC == "2113", "2013"))
+
 # Delete annee_naissance = 1904
 temp_csv <- with(csv, (annee_naissance == "1904"))
 csv <- csv[!temp_csv, ]
@@ -190,6 +199,7 @@ tb_age2 <- ggplot(age_data, aes(x="", y=nb, fill=age))+
 # histogramme répartition âge
 data_test <- plot_ly(data = age_data, x=~age,y=~nb,type="bar")
 
+
 ## SEXE
 data_sexe <- plot_ly(data = csv, x=~genre,type="histogram")
 
@@ -213,7 +223,14 @@ tb_sexe2 <- ggplot(genre_data, aes(x="", y=nb, fill=genre))+
 ## NATIONALITE
 data_nat <- plot_ly(data = csv, x=~nationalite,type="histogram")
 
+## FREE PART
+## AGE VS TYPE DE FORMATION SUIVIE
+age_type_bac <- ggplot(csv) + geom_bar(aes(x = age, fill = type_bac))
+age_type_bac
 
+## GENRE VS TYPE DE FORMATION SUIVIE
+genre_type_bac <- ggplot(csv) + geom_bar(aes(x = genre, fill = type_bac))
+genre_type_bac
 
 ########## REMI PART ##########
 
