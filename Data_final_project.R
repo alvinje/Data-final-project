@@ -417,6 +417,8 @@ tb + coord_polar("y", start=0) +
 #alors on va considerer qu'ils l'ont eu a 18 ans
 AnneeObtentionBac <-  data.frame(csv$annee_naissance + 18)
 
+names(AnneeObtentionBac)[1] <- "annee_obtention"
+
 #calcul du nombre de personne ayant obtenu le bac la meme annee
 AnneeObtentionBac <- AnneeObtentionBac %>%
   group_by(annee_obtention)%>%
