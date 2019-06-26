@@ -39,50 +39,50 @@ colnames(csv)
 
 # Rename columns with Dplyr package.
 #csv <- csv %>% rename(
-#  annee_naissance = "Quelle est votre année de naissance ?",
-#  genre = "Vous êtes ?",
-#  nationalite = "Quel est votre nationalité ?",
-#  departement_travail = "Dans quel département travaillez-vous ?",
+#  annee_naissance = "Quelle est votre ann?e de naissance ?",
+#  genre = "Vous ?tes ?",
+#  nationalite = "Quel est votre nationalit? ?",
+#  departement_travail = "Dans quel d?partement travaillez-vous ?",
 #  situation_pro = "Quelle est votre situation professionnelle ?",
-#  specialisation_pro = "Quelle est votre spécialisation professionnelle ?",
-#  diplome_actuel =  "Quelle est votre niveau de diplôme actuel ?",
+#  specialisation_pro = "Quelle est votre sp?cialisation professionnelle ?",
+#  diplome_actuel =  "Quelle est votre niveau de dipl?me actuel ?",
 #  tranche_salaire = "Quelle est votre tranche de salaire ?",
 #  type_bac = "Quel type de Bac avez-vous obtenu ?",
-#  annee_dernier_diplome_avant_DC = "En quelle année avez-vous obtenu votre dernier diplôme avant Digital Campus ?",
-#  dernier_diplome_avant_dc = "Quel est votre dernier niveau d'étude obtenu ?",
-#  formation_DC = "Quelle formation avez-vous suivi à Digital Campus ?",
+#  annee_dernier_diplome_avant_DC = "En quelle ann?e avez-vous obtenu votre dernier dipl?me avant Digital Campus ?",
+#  dernier_diplome_avant_dc = "Quel est votre dernier niveau d'?tude obtenu ?",
+#  formation_DC = "Quelle formation avez-vous suivi ? Digital Campus ?",
 #  ville_formation_DC = "Dans quelle ville avez-vous fait votre formation Digital Campus ?",
-#  annee_debut_DC = "En quelle année avez-vous rejoint Digital Campus ?",
-#  annee_fin_DC = "En quelle année avez-vous quitté Digital Campus ?",
-#  niveau_avt_dc_crea = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Créatif]",
-#  niveau_avt_dc_mkt_com = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Marketing et communication]",
-#  niveau_avt_dc_dev = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Developpement]",
-#  niveau_avt_dc_gest = "Comment évaluez-vous votre niveau avant Digital Campus dans les domaines suivants? [Gestion de projet]",
-#  niveau_apr_dc_crea = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Créatif]",
-#  niveau_apr_dc_mkt_com = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Marketing et communication]",
-#  niveau_apr_dc_dev = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Developpement]",
-#  niveau_apr_dc_gest = "Comment évaluez-vous votre niveau après Digital Campus dans les domaines suivants? [Gestion de projet]",
-#  spe = "Quelle spécialité avez-vous choisi ?",
-#  spe_ok = "Votre spécialité a-t-elle répondu à vos attentes ?",
-#  tps_trouve_alt = "En combien de temps avez-vous trouvé votre alternance ?",
-#  sourcing_alt = "Comment avez-vous trouvé votre alternance ?",
-#  reco_dc = "Recommanderiez-vous Digital Campus à d'autres personnes sur une échelle de 0 à 5 ?",
-#  recherche_emploi_apr_dc = "Avez-vous cherché un emploi à la fin de vos études ?",
+#  annee_debut_DC = "En quelle ann?e avez-vous rejoint Digital Campus ?",
+#  annee_fin_DC = "En quelle ann?e avez-vous quitt? Digital Campus ?",
+#  niveau_avt_dc_crea = "Comment ?valuez-vous votre niveau avant Digital Campus dans les domaines suivants? [Cr?atif]",
+#  niveau_avt_dc_mkt_com = "Comment ?valuez-vous votre niveau avant Digital Campus dans les domaines suivants? [Marketing et communication]",
+#  niveau_avt_dc_dev = "Comment ?valuez-vous votre niveau avant Digital Campus dans les domaines suivants? [Developpement]",
+#  niveau_avt_dc_gest = "Comment ?valuez-vous votre niveau avant Digital Campus dans les domaines suivants? [Gestion de projet]",
+#  niveau_apr_dc_crea = "Comment ?valuez-vous votre niveau apr?s Digital Campus dans les domaines suivants? [Cr?atif]",
+#  niveau_apr_dc_mkt_com = "Comment ?valuez-vous votre niveau apr?s Digital Campus dans les domaines suivants? [Marketing et communication]",
+#  niveau_apr_dc_dev = "Comment ?valuez-vous votre niveau apr?s Digital Campus dans les domaines suivants? [Developpement]",
+#  niveau_apr_dc_gest = "Comment ?valuez-vous votre niveau apr?s Digital Campus dans les domaines suivants? [Gestion de projet]",
+#  spe = "Quelle sp?cialit? avez-vous choisi ?",
+#  spe_ok = "Votre sp?cialit? a-t-elle r?pondu ? vos attentes ?",
+#  tps_trouve_alt = "En combien de temps avez-vous trouv? votre alternance ?",
+#  sourcing_alt = "Comment avez-vous trouv? votre alternance ?",
+#  reco_dc = "Recommanderiez-vous Digital Campus ? d'autres personnes sur une ?chelle de 0 ? 5 ?",
+#  recherche_emploi_apr_dc = "Avez-vous cherch? un emploi ? la fin de vos ?tudes ?",
 #  non_pq = "Non, pourquoi ?",
-#  tps_recherche_emploi = "Combien de temps a duré votre recherche d'emploi ?",
-#  spe_pro = "Quelle est votre spécialisation professionnelle ?",
-#  type_contrat_apr_dc = "Quel était le type de contrat ?",
-#  tps_plein_partiel = "Était-ce à temps plein ou à temps partiel ?",
-#  salaire_embauche_apr_dc = "Quel était votre salaire à l'embauche ?",
-#  emploi_priv_pub = "Votre emploi était-il dans le privé ou dans le public ?",
-#  csp_apr_dc = "A quelle catégorie socio-professionnelle apparteniez-vous ?",
-#  type_entreprise = "Dans quel type d'entreprise étiez-vous?",
-#  dept_premier_emploi = "Dans quel département avez-vous trouvé votre premier emploi ?",
+#  tps_recherche_emploi = "Combien de temps a dur? votre recherche d'emploi ?",
+#  spe_pro = "Quelle est votre sp?cialisation professionnelle ?",
+#  type_contrat_apr_dc = "Quel ?tait le type de contrat ?",
+#  tps_plein_partiel = "?tait-ce ? temps plein ou ? temps partiel ?",
+#  salaire_embauche_apr_dc = "Quel ?tait votre salaire ? l'embauche ?",
+#  emploi_priv_pub = "Votre emploi ?tait-il dans le priv? ou dans le public ?",
+#  csp_apr_dc = "A quelle cat?gorie socio-professionnelle apparteniez-vous ?",
+#  type_entreprise = "Dans quel type d'entreprise ?tiez-vous?",
+#  dept_premier_emploi = "Dans quel d?partement avez-vous trouv? votre premier emploi ?",
 #  milieu = "Dans quel milieu ?",
-#  change_ville_pr_emploi = "Aviez-vous changé de ville pour décrocher cet emploi ?",
-#  cmt_trouve_emploi_apr_dc = "Comment aviez-vous trouvé votre travail ?",
-#  perception_recherche_emploi_apr_dc = "Comment aviez-vous perçu votre recherche d'emploi ?",
-#  satisfaction_premier_emploi = "Aviez-vous été satisfait de ce premier emploi?",
+#  change_ville_pr_emploi = "Aviez-vous chang? de ville pour d?crocher cet emploi ?",
+#  cmt_trouve_emploi_apr_dc = "Comment aviez-vous trouv? votre travail ?",
+#  perception_recherche_emploi_apr_dc = "Comment aviez-vous per?u votre recherche d'emploi ?",
+#  satisfaction_premier_emploi = "Aviez-vous ?t? satisfait de ce premier emploi?",
 #  place_travail_vie = "Quelle place occupe votre travail dans votre vie?",
 #  estimation_importance_dc_recrutement = "A combien estimez vous l'importance de digital campus dans votre recrutement?"
 #)
@@ -156,7 +156,7 @@ head(csv)
 #evt <- 2019
 #time_length(interval(naiss, evt))
 
-# Calcul de l'âge réel et stockage du résultat dans une nouvelle colonne
+# Calcul de l'?ge r?el et stockage du r?sultat dans une nouvelle colonne
 csv$age <- 2019 - csv$annee_naissance
 
 data_age <- plot_ly(data = csv, x=~age,type="histogram")
@@ -173,37 +173,30 @@ data_age <- data_age %>%
 #graph avec age
 tb_age <- ggplot(data_age, aes(x="", y=n, fill=age))+
   geom_bar(width = 1, stat = "identity", color = "white")
-#affichage en camembert pour que ça soit plus parlant
-#on peut considerer les resultats comme des pourcentages
-# comme le total est egal a 100
-tb_age + coord_polar("y", start=0) +
-  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
-  labs(fill = "Âge") + labs(x = "") + labs(y = "")
 
+# Cr?er une variable de position
+age_data <- csv %>%
+  filter(!is.na(age)) %>%
+  group_by(age) %>%
+  summarise(nb = n()) %>%
+  mutate(pct = round(nb / sum(nb) * 100)) %>%
+  arrange(desc(age)) %>%
+  mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+#camembert avec genre et labels en pourcentages
+tb_age2 <- ggplot(age_data, aes(x="", y=nb, fill=age))+
+  geom_bar(width = 1, stat = "identity", color = "white")+
+  coord_polar("y", start=0) +
+  geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
+  labs(fill = "Age") + labs(x = "") + labs(y = "")
+
+# histogramme rÃ©partition Ã¢ge
+data_test <- plot_ly(data = age_data, x=~age,y=~nb,type="bar")
 
 ## SEXE
 data_sexe <- plot_ly(data = csv, x=~genre,type="histogram")
 
-#Regroupe les sexes en un dataframe
-#data_sexe <- data.frame(csv[,2])
-#compte le nombre de chaque sexe
-#data_sexe <- data_sexe %>%
-#  group_by(genre)%>%
-#  count()
-#data_sexe2 <- data_sexe %>%
-#  arrange(desc(genre)) %>%
-#  mutate(lab.ypos = cumsum(n) - 0.5 * n)
-#graph avec sexe
-#tb_sexe <- ggplot(data_sexe2, aes(x="", y=n, fill=genre))+
-#  geom_bar(width = 1, stat = "identity", color = "white")+
-#affichage en camembert pour que ça soit plus parlant
-#on peut considerer les resultats comme des pourcentages
-# comme le total est egal a 100
-# coord_polar("y", start=0) +
-#  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
-#  labs(fill = "Sexe") + labs(x = "") + labs(y = "")
-
-# Créer une variable de position
+# Cr?er une variable de position
 genre_data <- csv %>%
   filter(!is.na(genre)) %>%
   group_by(genre) %>%
@@ -218,15 +211,6 @@ tb_sexe2 <- ggplot(genre_data, aes(x="", y=nb, fill=genre))+
   coord_polar("y", start=0) +
   geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
   labs(fill = "Sexe") + labs(x = "") + labs(y = "")
-
-#pie1 <- pie(genre$pct,labels=paste0(genre$genre,genre$pct,'%'),
-#            cex=0.5)
-
-#pie2 <- ggplot(genre, aes(x = '', y = pct, fill = qualif)) +
-#  geom_bar(width = 1, stat = 'identity') +
-#  coord_polar('y') +
-#  geom_text(aes(y = lab_ypos, label = paste0(pt,'%')))+
-#  theme_void()
 
 
 ## NATIONALITE
@@ -272,7 +256,7 @@ ComparerNiveauCreatifAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau créatif avant", "Niveau créatif après"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau cr?atif avant", "Niveau cr?atif apr?s"), ncol = 2, nrow = 1))
 }
 
 # Analyse du niveau Marketing et communication avant/aprï¿½s.
@@ -311,7 +295,7 @@ ComparerNiveauMarketingAvantApres <- function() {
   return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing aprds"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau développement avant/après.
+# Analyse du niveau d?veloppement avant/apr?s.
 
 ComparerNiveauDeveloppementAvantApres <- function() {
   niveauDeveloppementAvantDC <- csv%>%
@@ -344,7 +328,7 @@ ComparerNiveauDeveloppementAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement après"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement apr?s"), ncol = 2, nrow = 1))
 }
 
 # Analyse du niveau dï¿½veloppement avant/aprï¿½s.
@@ -380,7 +364,7 @@ ComparerNiveauGestionProjetAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion de Projet après"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion de Projet apr?s"), ncol = 2, nrow = 1))
 }
 
 # Call functions
@@ -431,7 +415,7 @@ ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=n)) +
   geom_bar(stat = 'identity', width = 1, color = "#2AA4AC") +
   theme(axis.title.x = element_blank(),
   axis.title.y = element_blank()) +
-  ggtitle("Nombre d'étudiants en fonction de l'année d'obtention du bac") +
+  ggtitle("Nombre d'?tudiants en fonction de l'ann?e d'obtention du bac") +
   theme(plot.title = element_text(size = 15, face = "bold"))
 
 #II b)
@@ -447,5 +431,5 @@ ggplot(data = typeFormation, aes(x=type_formation, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
   theme(axis.title.x = element_blank(),
   axis.title.y = element_blank()) +
-  ggtitle("Nombre d'étudiants en fonction du type de formation suivie à Digital Campus") +
+  ggtitle("Nombre d'?tudiants en fonction du type de formation suivie ? Digital Campus") +
   theme(plot.title = element_text(size = 12, face = "bold"))
