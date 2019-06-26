@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6e521c2-a51d-40e7-8936-47e1d948c705" name="Default Changelist" comment="" />
+    <list default="true" id="d6e521c2-a51d-40e7-8936-47e1d948c705" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_final_project.R" beforeDir="false" afterPath="$PROJECT_DIR$/Data_final_project.R" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +49,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data_final_project.R">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
+            <state relative-caret-position="602">
+              <caret line="372" column="19" selection-start-line="372" selection-start-column="19" selection-end-line="372" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -125,12 +128,12 @@
       <updated>1559908252993</updated>
       <workItem from="1559908254479" duration="2410000" />
       <workItem from="1561536569836" duration="21000" />
-      <workItem from="1561543042620" duration="2576000" />
+      <workItem from="1561543042620" duration="3249000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5140000" />
+    <option name="totallyTimeSpent" value="5813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -169,8 +172,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Data_final_project.R">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
+        <state relative-caret-position="602">
+          <caret line="372" column="19" selection-start-line="372" selection-start-column="19" selection-end-line="372" selection-end-column="19" />
         </state>
       </provider>
     </entry>

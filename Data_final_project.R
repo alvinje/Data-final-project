@@ -141,37 +141,32 @@ csv <- csv %>% filter(!is.na(annee_naissance))
 summary(csv)
 head(csv)
 
+
+# init color theme.
+colors <- c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B")
+
 ############## SANDRA PART ##############
 ## PROFIL DES REPONDANTS ##
 
 ## AGE
-#annee_naissance <- csv %>%
-#  group_by('age') %>%
-#  count()
 
-#naiss <- csv$age
-#evt <- 2019
-#time_length(interval(naiss, evt))
+# Get current year from the system date and convert it to integer.
+currentYear <- strtoi(format(Sys.Date(), "%Y"))
 
-# Calcul de l'?ge r?el et stockage du r?sultat dans une nouvelle colonne
-csv$age <- 2019 - csv$annee_naissance
-
-data_age <- plot_ly(data = csv, x=~age,type="histogram")
+# Calcul de l'âge réel et stockage du résultat dans une nouvelle colonne
+csv$age <- currentYear - csv$annee_naissance
 
 #Regroupe les ages en un dataframe
 data_age <- data.frame(csv[,47])
+
 #compte le nombre de chaque age
 data_age <- data_age %>%
   group_by(age)%>%
-  count()
-data_age <- data_age %>%
+  count() %>%
   arrange(desc(age)) %>%
   mutate(lab.ypos = cumsum(n) - 0.5*n)
-#graph avec age
-tb_age <- ggplot(data_age, aes(x="", y=n, fill=age))+
-  geom_bar(width = 1, stat = "identity", color = "white")
 
-# Cr?er une variable de position
+# Créer une variable de position
 age_data <- csv %>%
   filter(!is.na(age)) %>%
   group_by(age) %>%
@@ -180,20 +175,20 @@ age_data <- csv %>%
   arrange(desc(age)) %>%
   mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
 
-#camembert avec genre et labels en pourcentages
-tb_age2 <- ggplot(age_data, aes(x="", y=nb, fill=age))+
+# Camembert avec genre et labels en pourcentages
+ggplot(age_data, aes(x="", y=nb, fill=age))+
   geom_bar(width = 1, stat = "identity", color = "white")+
   coord_polar("y", start=0) +
   geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
   labs(fill = "Age") + labs(x = "") + labs(y = "")
 
-# histogramme rÃ©partition Ã¢ge
-data_test <- plot_ly(data = age_data, x=~age,y=~nb,type="bar")
+# Histogramme répartition âge
+plot_ly(data = age_data, x=~age,y=~nb,type="bar")
 
 ## SEXE
-data_sexe <- plot_ly(data = csv, x=~genre,type="histogram")
+plot_ly(data = csv, x=~genre,type="histogram")
 
-# Cr?er une variable de position
+# Créer une variable de position
 genre_data <- csv %>%
   filter(!is.na(genre)) %>%
   group_by(genre) %>%
@@ -202,25 +197,24 @@ genre_data <- csv %>%
   arrange(desc(genre)) %>%
   mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
 
-#graph avec genre et labels en pourcentages
-tb_sexe2 <- ggplot(genre_data, aes(x="", y=nb, fill=genre))+
+# Graph avec genre et labels en pourcentages
+ggplot(genre_data, aes(x="", y=nb, fill=genre))+
   geom_bar(width = 1, stat = "identity", color = "white")+
   coord_polar("y", start=0) +
   geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
-  labs(fill = "Sexe") + labs(x = "") + labs(y = "")
+  labs(fill = "Sexe") + labs(x = "") + labs(y = "") +
+  scale_fill_manual(values = colors) +
+  theme_void()
 
 
 ## NATIONALITE
-data_nat <- plot_ly(data = csv, x=~nationalite,type="histogram")
+plot_ly(data = csv, x=~nationalite,type="histogram")
 
 
 
 ########## REMI PART ##########
 
-# init color graph
-colors <- c("#0073C2FF", "#EFC000FF", "#008686FF")
-
-# Analyse du niveau crï¿½atif avant/aprï¿½s.
+# Analyse du niveau créatif avant/après.
 
 ComparerNiveauCreatifAvantApres <- function() {
   niveauCreatifAvantDC <- csv%>%
@@ -253,10 +247,10 @@ ComparerNiveauCreatifAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau cr?atif avant", "Niveau cr?atif apr?s"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau créatif avant", "Niveau créatif après"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau Marketing et communication avant/aprï¿½s.
+# Analyse du niveau Marketing et communication avant/après.
 
 ComparerNiveauMarketingAvantApres <- function() {
   niveauMarketingAvantDC <- csv%>%
@@ -289,10 +283,10 @@ ComparerNiveauMarketingAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing aprds"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing après"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau d?veloppement avant/apr?s.
+# Analyse du niveau développement avant/après.
 
 ComparerNiveauDeveloppementAvantApres <- function() {
   niveauDeveloppementAvantDC <- csv%>%
@@ -325,10 +319,10 @@ ComparerNiveauDeveloppementAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement apr?s"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement après"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau dï¿½veloppement avant/aprï¿½s.
+# Analyse du niveau développement avant/après.
 
 ComparerNiveauGestionProjetAvantApres <- function() {
   niveauGestionProjetAvantDC <- csv%>%
@@ -361,7 +355,7 @@ ComparerNiveauGestionProjetAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion de Projet apr?s"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion de Projet après"), ncol = 2, nrow = 1))
 }
 
 # Call functions
@@ -371,48 +365,49 @@ ComparerNiveauDeveloppementAvantApres()
 ComparerNiveauGestionProjetAvantApres()
 
 ############## MARGAUX PART ##############
-#II. Analyse descriptive de leur parcours scolaire
-#A Description du BAC
-#i Type de BAC
 #Regroude les type de bac en un dataframe
 typeBac <- data.frame(csv[,9])
+
 #compte le nombre de chaque type de bac
-typeBac <- typeBac %>%
+typeBac <- csv %>%
   group_by(type_bac)%>%
-  count()
-typeBac <- typeBac %>%
-  arrange(desc(type_bac)) %>%
-  mutate(lab.ypos = cumsum(n) - 0.5*n)
+  summarise(nb = n())%>%
+  mutate(pct = round(nb/sum(nb)*100)) %>%
+  arrange(desc(type_bac))%>%
+  mutate(lab_ypos = cumsum(pct) - 0.5*pct)
+
 #graph avec type de bac
-tb <- ggplot(typeBac, aes(x="", y=n, fill=type_bac))+
+tb <- ggplot(typeBac, aes(x="", y=nb, fill=type_bac))+
 geom_bar(width = 1, stat = "identity", color = "white")
-#affichage en camembert pour que Ã§a soit plus parlant
-#on peut considerer les resultats comme des pourcentages
+
+# Affichage en camembert pour que ce soit plus parlant
+# on peut considerer les resultats comme des pourcentages
 # comme le total est egal a 100
+
 tb + coord_polar("y", start=0) +
-  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
+  geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
   labs(fill = "Types de bac") + labs(x = "") + labs(y = "") +
-  scale_fill_manual(values=c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B")) +
-  theme(axis.text = element_blank(),
-  axis.ticks = element_blank(),
-  panel.grid  = element_blank()) +
-  theme(panel.background = element_blank())
+  scale_fill_manual(values = colors) +
+  theme_void(
+  )
 
 #ii Annee d'obtention du BAC
 #impossible de savoir precisemment quand ils ont eu leur bac
 #alors on va considerer qu'ils l'ont eu a 18 ans
 AnneeObtentionBac <-  data.frame(csv$annee_naissance + 18)
 names(AnneeObtentionBac)[1] <- 'annee_obtention'
+
 #calcul du nombre de personne ayant obtenu le bac la meme annee
 AnneeObtentionBac <- AnneeObtentionBac %>%
   group_by(annee_obtention)%>%
   count()
+
 #affichage goem bar annee obtention
 ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=n)) +
-  geom_bar(stat = 'identity', width = 1, color = "#2AA4AC") +
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
   axis.title.y = element_blank()) +
-  ggtitle("Nombre d'?tudiants en fonction de l'ann?e d'obtention du bac") +
+  ggtitle("Nombre d'étudiants en fonction de l'année d'obtention du bac") +
   theme(plot.title = element_text(size = 15, face = "bold"))
 
 #II b)
@@ -427,6 +422,49 @@ typeFormation <- typeFormation %>%
 ggplot(data = typeFormation, aes(x=type_formation, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
   theme(axis.title.x = element_blank(),
-  axis.title.y = element_blank()) +
-  ggtitle("Nombre d'?tudiants en fonction du type de formation suivie ? Digital Campus") +
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction du type de formation suivie à Digital Campus") +
+  theme(plot.title = element_text(size = 12, face = "bold"))
+
+#ii Ville de formation
+villeFormation <-  data.frame(csv$ville_formation_DC)
+names(villeFormation)[1] <- 'ville_formation'
+#calcul du nombre de personnes en fonction du type de formation
+villeFormation <- villeFormation %>%
+  group_by(ville_formation)%>%
+  count()
+#affichage goem bar type formation
+ggplot(data = villeFormation, aes(x=ville_formation, y=n)) +
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de la ville de formation DC") +
+  theme(plot.title = element_text(size = 12, face = "bold"))
+
+#iii Annee de debut de formation
+
+#calcul du nombre de personnes en fonction du type de formation
+anneeDebut <- csv %>%
+  group_by(annee_debut_DC)%>%
+  count()
+#affichage goem bar type formation
+ggplot(data = anneeDebut, aes(x=annee_debut_DC, y=n)) +
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de l'année de début de formation") +
+  theme(plot.title = element_text(size = 12, face = "bold"))
+
+#iv Annee de fin de formation
+
+#calcul du nombre de personnes en fonction du type de formation
+anneeFin <- csv %>%
+  group_by(annee_fin_DC)%>%
+  count()
+#affichage goem bar type formation
+ggplot(data = anneeFin, aes(x=annee_fin_DC, y=n)) +
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de l'année de fin de formation") +
   theme(plot.title = element_text(size = 12, face = "bold"))
