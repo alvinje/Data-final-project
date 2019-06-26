@@ -91,11 +91,10 @@ colnames(csv)
 #write.csv(csv, "D:/Desktop/Data-final-project/renamedData.csv", row.names = FALSE)
 
 
-
 ##### DATA TRAITMENT #####
-colnames(csv)
 
-# Adapt data to factor if necessary.
+
+# Convert data to factor if necessary.
 col_departements_is_factor = c("dept_premier_emploi", "departement_travail")
 for (col in colnames(csv)){
   if ( class(csv[[col]]) == "character" || col %in% col_departements_is_factor){
@@ -103,8 +102,6 @@ for (col in colnames(csv)){
   }
 }
 
-
-class(csv$nationalite)
 
 # Change 996 to 1996 due to an error of user.
 csv <- csv %>% mutate(annee_naissance = ifelse(annee_naissance == 996, 1996, annee_naissance))
