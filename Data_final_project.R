@@ -73,6 +73,47 @@ ggplot(data = typeFormation, aes(x=type_formation, y=freq)) +
   ggtitle("Nombre d'étudiants en fonction du type de formation suivie à Digital Campus") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
+#ii Ville de formation
+villeFormation <-  data.frame(csv$'Dans quelle ville avez-vous fait votre formation Digital Campus ?')
+names(villeFormation)[1] <- 'ville_formation'
+#calcul du nombre de personnes en fonction du type de formation
+villeFormation <- villeFormation %>%
+  group_by(ville_formation)%>%
+  count()
+#affichage goem bar type formation
+ggplot(data = villeFormation, aes(x=ville_formation, y=freq)) + 
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de la ville de formation DC") +
+  theme(plot.title = element_text(size = 12, face = "bold"))
 
+#iii Annee de debut de formation
+anneeDebut <-  data.frame(csv$'En quelle année avez-vous rejoint Digital Campus ?')
+names(anneeDebut)[1] <- 'annee_debut'
+#calcul du nombre de personnes en fonction du type de formation
+anneeDebut <- anneeDebut %>%
+  group_by(annee_debut)%>%
+  count()
+#affichage goem bar type formation
+ggplot(data = anneeDebut, aes(x=annee_debut, y=freq)) + 
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de l'année de début de formation") +
+  theme(plot.title = element_text(size = 12, face = "bold"))
 
-
+#iv Annee de fin de formation
+anneeFin <-  data.frame(csv$'En quelle année avez-vous quitté Digital Campus ?')
+names(anneeFin)[1] <- 'annee_fin'
+#calcul du nombre de personnes en fonction du type de formation
+anneeFin <- anneeFin %>%
+  group_by(annee_fin)%>%
+  count()
+#affichage goem bar type formation
+ggplot(data = anneeFin, aes(x=annee_fin, y=freq)) + 
+  geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de l'année de fin de formation") +
+  theme(plot.title = element_text(size = 12, face = "bold"))
