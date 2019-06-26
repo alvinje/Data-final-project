@@ -7,7 +7,8 @@ library(tidyverse)
 library(plotly)
 library(ggplot2)
 library(data.table)
-csv <- fread("data_DC.csv", encoding = "WINDOWS-1252")
+
+# csv <- fread("data_DC.csv", encoding = "WINDOWS-1252")
 
 library(readr)
 csv <- read_delim("data_DC.csv", ";", 
@@ -113,13 +114,82 @@ head(csv)
 #time_length(interval(naiss, evt))
 
 # Calcul de l'âge réel et stockage du résultat dans une nouvelle colonne
-csv$vrai_age <- 2019 - csv$age
+csv$age <- 2019 - csv$annee_naissance
 
-data_age <- plot_ly(data = csv, x=~actual_age,type="histogram")
+data_age <- plot_ly(data = csv, x=~age,type="histogram")
+
+#Regroupe les ages en un dataframe
+data_age <- data.frame(csv[,47])
+#compte le nombre de chaque age
+data_age <- data_age %>%
+  group_by(age)%>%
+  count()
+data_age <- data_age %>%
+  arrange(desc(age)) %>%
+  mutate(lab.ypos = cumsum(n) - 0.5*n)
+#graph avec age
+tb_age <- ggplot(data_age, aes(x="", y=n, fill=age))+
+  geom_bar(width = 1, stat = "identity", color = "white")
+#affichage en camembert pour que ça soit plus parlant
+#on peut considerer les resultats comme des pourcentages
+# comme le total est egal a 100
+tb_age + coord_polar("y", start=0) +
+  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
+  labs(fill = "Âge") + labs(x = "") + labs(y = "")
+
 
 ## SEXE
 data_sexe <- plot_ly(data = csv, x=~genre,type="histogram")
 
+#Regroupe les sexes en un dataframe
+#data_sexe <- data.frame(csv[,2])
+#compte le nombre de chaque sexe
+#data_sexe <- data_sexe %>%
+#  group_by(genre)%>%
+#  count()
+#data_sexe2 <- data_sexe %>%
+#  arrange(desc(genre)) %>%
+#  mutate(lab.ypos = cumsum(n) - 0.5 * n)
+#graph avec sexe
+#tb_sexe <- ggplot(data_sexe2, aes(x="", y=n, fill=genre))+
+#  geom_bar(width = 1, stat = "identity", color = "white")+
+#affichage en camembert pour que ça soit plus parlant
+#on peut considerer les resultats comme des pourcentages
+# comme le total est egal a 100
+# coord_polar("y", start=0) +
+#  geom_text(aes(y = lab.ypos, label = paste0(n,'%')), color = "white") +
+#  labs(fill = "Sexe") + labs(x = "") + labs(y = "")
+
+# Créer une variable de position
+genre_data <- csv %>%
+  filter(!is.na(genre)) %>%
+  group_by(genre) %>%
+  summarise(nb = n()) %>%
+  mutate(pct = round(nb / sum(nb) * 100)) %>%
+  arrange(desc(genre)) %>%
+  mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+#graph avec genre et labels en pourcentages
+tb_sexe2 <- ggplot(genre_data, aes(x="", y=nb, fill=genre))+
+  geom_bar(width = 1, stat = "identity", color = "white")+
+  coord_polar("y", start=0) +
+  geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
+  labs(fill = "Sexe") + labs(x = "") + labs(y = "")
+  
+#pie1 <- pie(genre$pct,labels=paste0(genre$genre,genre$pct,'%'),
+#            cex=0.5)
+
+#pie2 <- ggplot(genre, aes(x = '', y = pct, fill = qualif)) +
+#  geom_bar(width = 1, stat = 'identity') +
+#  coord_polar('y') +
+#  geom_text(aes(y = lab_ypos, label = paste0(pt,'%')))+
+#  theme_void()
+
+
 ## NATIONALITE
 data_nat <- plot_ly(data = csv, x=~nationalite,type="histogram")
+
+
+
+
 
