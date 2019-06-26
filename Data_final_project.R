@@ -12,7 +12,7 @@ Packages <- c("dplyr", "tidyverse", "plotly", "ggplot2", "data.table", "readr", 
 packagesToInstall <- Packages[!(Packages %in% installed.packages()[,"Package"])]
 
 # Install uninstalled package if true.
-if(length(new.packages)) install.packages(new.packages)
+if(length(packagesToInstall)) install.packages(packagesToInstall)
 
 # Add dependency to packages.
 lapply(Packages, library, character.only = TRUE)
