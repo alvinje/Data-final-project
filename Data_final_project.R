@@ -157,12 +157,11 @@ colors <- c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B")
 # Get current year from the system date and convert it to integer.
 currentYear <- strtoi(format(Sys.Date(), "%Y"))
 
-############## SANDRA PART ##############
-## PROFIL DES REPONDANTS ##
+####### PROFIL DES REPONDANTS #######
 
 ## AGE
 
-# Calcul de l'âge réel et stockage du résultat dans une nouvelle colonne
+# Calcul de l'age reel et stockage du resultat dans une nouvelle colonne
 csv$age <- currentYear - csv$annee_naissance
 
 #Regroupe les ages en un dataframe
@@ -175,7 +174,7 @@ data_age <- data_age %>%
   arrange(desc(age)) %>%
   mutate(lab.ypos = cumsum(n) - 0.5*n)
 
-# Créer une variable de position
+# Creer une variable de position
 age_data <- csv %>%
   filter(!is.na(age)) %>%
   group_by(age) %>%
@@ -191,13 +190,13 @@ ggplot(age_data, aes(x="", y=nb, fill=age))+
   geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
   labs(fill = "Age") + labs(x = "") + labs(y = "")
 
-# Histogramme répartition âge
+# Histogramme repartition age
 plot_ly(data = age_data, x=~age,y=~nb,type="bar")
 
 ## SEXE
 plot_ly(data = csv, x=~genre,type="histogram")
 
-# Créer une variable de position
+# Creer une variable de position
 genre_data <- csv %>%
   filter(!is.na(genre)) %>%
   group_by(genre) %>%
@@ -206,7 +205,7 @@ genre_data <- csv %>%
   arrange(desc(genre)) %>%
   mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
 
-# Graph avec genre et labels en pourcentages
+# Graphe avec genre et labels en pourcentages
 ggplot(genre_data, aes(x="", y=nb, fill=genre))+
   geom_bar(width = 1, stat = "identity", color = "white")+
   coord_polar("y", start=0) +
@@ -228,9 +227,9 @@ age_type_bac
 genre_type_bac <- ggplot(csv) + geom_bar(aes(x = genre, fill = type_bac))
 genre_type_bac
 
-########## REMI PART ##########
+########## ANALYSE PARCOURS SCOLAIRE ##########
 
-# Analyse du niveau créatif avant/après.
+# Analyse du niveau creatif avant/apres.
 
 ComparerNiveauCreatifAvantApres <- function() {
   niveauCreatifAvantDC <- csv%>%
@@ -263,10 +262,10 @@ ComparerNiveauCreatifAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau créatif avant", "Niveau créatif après"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau cr?atif avant", "Niveau cr?atif apr?s"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau Marketing et communication avant/après.
+# Analyse du niveau Marketing et communication avant/apr?s.
 
 ComparerNiveauMarketingAvantApres <- function() {
   niveauMarketingAvantDC <- csv%>%
@@ -299,10 +298,10 @@ ComparerNiveauMarketingAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing après"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing apr?s"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau développement avant/après.
+# Analyse du niveau developpement avant/apres.
 
 ComparerNiveauDeveloppementAvantApres <- function() {
   niveauDeveloppementAvantDC <- csv%>%
@@ -335,10 +334,10 @@ ComparerNiveauDeveloppementAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement après"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement apr?s"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau développement avant/après.
+# Analyse du niveau developpement avant/apres.
 
 ComparerNiveauGestionProjetAvantApres <- function() {
   niveauGestionProjetAvantDC <- csv%>%
@@ -371,7 +370,7 @@ ComparerNiveauGestionProjetAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion de Projet après"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion de Projet apr?s"), ncol = 2, nrow = 1))
 }
 
 # Call functions
@@ -380,8 +379,8 @@ ComparerNiveauMarketingAvantApres()
 ComparerNiveauDeveloppementAvantApres()
 ComparerNiveauGestionProjetAvantApres()
 
-############## MARGAUX PART ##############
-#Regroude les type de bac en un dataframe
+############## PARCOURS PROFESSIONNEL ##############
+#Regroupe les types de bac en un dataframe
 typeBac <- data.frame(csv[,9])
 
 #compte le nombre de chaque type de bac
@@ -392,7 +391,7 @@ typeBac <- csv %>%
   arrange(desc(type_bac))%>%
   mutate(lab_ypos = cumsum(pct) - 0.5*pct)
 
-#graph avec type de bac
+#graphe avec type de bac
 tb <- ggplot(typeBac, aes(x="", y=nb, fill=type_bac))+
 geom_bar(width = 1, stat = "identity", color = "white")
 
@@ -407,7 +406,7 @@ tb + coord_polar("y", start=0) +
   theme_void(
   )
 
-#ii Annee d'obtention du BAC
+#II Annee d'obtention du BAC
 #impossible de savoir precisemment quand ils ont eu leur bac
 #alors on va considerer qu'ils l'ont eu a 18 ans
 AnneeObtentionBac <-  data.frame(csv$annee_naissance + 18)
@@ -423,7 +422,7 @@ ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
   axis.title.y = element_blank()) +
-  ggtitle("Nombre d'étudiants en fonction de l'année d'obtention du bac") +
+  ggtitle("Nombre d'?tudiants en fonction de l'ann?e d'obtention du bac") +
   theme(plot.title = element_text(size = 15, face = "bold"))
 
 #II b)
@@ -439,7 +438,7 @@ ggplot(data = typeFormation, aes(x=type_formation, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank()) +
-  ggtitle("Nombre d'étudiants en fonction du type de formation suivie à Digital Campus") +
+  ggtitle("Nombre d'?tudiants en fonction du type de formation suivie ? Digital Campus") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
 #ii Ville de formation
@@ -454,7 +453,7 @@ ggplot(data = villeFormation, aes(x=ville_formation, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank()) +
-  ggtitle("Nombre d'étudiants en fonction de la ville de formation DC") +
+  ggtitle("Nombre d'?tudiants en fonction de la ville de formation DC") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
 #iii Annee de debut de formation
@@ -468,7 +467,7 @@ ggplot(data = anneeDebut, aes(x=annee_debut_DC, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank()) +
-  ggtitle("Nombre d'étudiants en fonction de l'année de début de formation") +
+  ggtitle("Nombre d'?tudiants en fonction de l'ann?e de d?but de formation") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
 #iv Annee de fin de formation
@@ -482,10 +481,10 @@ ggplot(data = anneeFin, aes(x=annee_fin_DC, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC") +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank()) +
-  ggtitle("Nombre d'étudiants en fonction de l'année de fin de formation") +
+  ggtitle("Nombre d'?tudiants en fonction de l'ann?e de fin de formation") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
-############## REMI + SANDRA PART ##############
+############## ANALYSES STATISTIQUES ##############
 
 # Tests de Khi 2
 chisq.test(csv$genre,csv$type_bac) # p-value = 0.8903
