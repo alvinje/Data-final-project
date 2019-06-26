@@ -224,10 +224,10 @@ ComparerNiveauMarketingAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing aprï¿½s"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing aprds"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau dï¿½veloppement avant/aprï¿½s.
+# Analyse du niveau développement avant/après.
 
 ComparerNiveauDeveloppementAvantApres <- function() {
   niveauDeveloppementAvantDC <- csv%>%
@@ -260,7 +260,7 @@ ComparerNiveauDeveloppementAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement aprï¿½s"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement après"), ncol = 2, nrow = 1))
 }
 
 # Analyse du niveau dï¿½veloppement avant/aprï¿½s.
@@ -296,7 +296,7 @@ ComparerNiveauGestionProjetAvantApres <- function() {
     scale_fill_manual(values = colors) +
     theme_void()
 
-  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion deProjet aprï¿½s"), ncol = 2, nrow = 1))
+  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion de Projet après"), ncol = 2, nrow = 1))
 }
 
 # Call functions
