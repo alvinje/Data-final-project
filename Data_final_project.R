@@ -8,11 +8,20 @@ library(plotly)
 library(ggplot2)
 library(data.table)
 library(readr)
+
+install.packages("gridExtra")
+library("gridExtra")
+install.packages("cowplot")
+library("cowplot")
+
+library(ggplot2)
+library(dplyr)
+
+setwd("D:/Desktop/Data-final-project")
+
 csv = read_delim("data_DC.csv", ";",
                       escape_double = FALSE, locale = locale(encoding = "WINDOWS-1252"),
                       trim_ws = TRUE)
-
-
 # get column names
 colnames(csv)
 
@@ -70,6 +79,7 @@ csv <- csv %>% rename(
   place_travail_vie = "Quelle place occupe votre travail dans votre vie?",
   estimation_importance_dc_recrutement = "A combien estimez vous l'importance de digital campus dans votre recrutement?"
 )
+
 colnames(csv)
 
 # Adapt data to factor if necessary.
@@ -130,7 +140,7 @@ head(csv)
 #time_length(interval(naiss, evt))
 
 # Calcul de l'√¢ge r√©el et stockage du r√©sultat dans une nouvelle colonne
-csv$vrai_age <- 2019 - csv$age
+csv$age <- 2019 - csv$annee_naissance
 
 data_age <- plot_ly(data = csv, x=~actual_age,type="histogram")
 
@@ -140,3 +150,157 @@ data_sexe <- plot_ly(data = csv, x=~genre,type="histogram")
 ## NATIONALITE
 data_nat <- plot_ly(data = csv, x=~nationalite,type="histogram")
 
+########## REMI PART ##########
+
+# init color graph
+colors <- c("#0073C2FF", "#EFC000FF", "#008686FF")
+
+# Analyse du niveau crÔøΩatif avant/aprÔøΩs.
+
+ComparerNiveauCreatifAvantApres <- function() {
+  niveauCreatifAvantDC <- csv%>%
+    filter(!is.na(niveau_avt_dc_crea)) %>%
+    group_by(niveau_avt_dc_crea) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_avt_dc_crea)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot1 <- ggplot(niveauCreatifAvantDC, aes(x = "", y = pct, fill = niveau_avt_dc_crea)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  niveauCreatifApresDC <- csv%>%
+    filter(!is.na(niveau_apr_dc_crea)) %>%
+    group_by(niveau_apr_dc_crea) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_apr_dc_crea)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot2 <- ggplot(niveauCreatifApresDC, aes(x = "", y = pct, fill = niveau_apr_dc_crea)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  return(plot_grid(plot1, plot2, labels=c("Niveau crÈatif avant", "Niveau crÈatif aprËs"), ncol = 2, nrow = 1))
+}
+
+# Analyse du niveau Marketing et communication avant/aprÔøΩs.
+
+ComparerNiveauMarketingAvantApres <- function() {
+  niveauMarketingAvantDC <- csv%>%
+    filter(!is.na(niveau_avt_dc_mkt_com)) %>%
+    group_by(niveau_avt_dc_mkt_com) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_avt_dc_mkt_com)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot1 <- ggplot(niveauMarketingAvantDC, aes(x = "", y = pct, fill = niveau_avt_dc_mkt_com)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  niveauMarketingApresDC <- csv%>%
+    filter(!is.na(niveau_apr_dc_mkt_com)) %>%
+    group_by(niveau_apr_dc_mkt_com) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_apr_dc_mkt_com)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot2 <- ggplot(niveauMarketingApresDC, aes(x = "", y = pct, fill = niveau_apr_dc_mkt_com)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  return(plot_grid(plot1, plot2, labels=c("Niveau Marketing avant", "Niveau Marketing aprÔøΩs"), ncol = 2, nrow = 1))
+}
+
+# Analyse du niveau dÔøΩveloppement avant/aprÔøΩs.
+
+ComparerNiveauDeveloppementAvantApres <- function() {
+  niveauDeveloppementAvantDC <- csv%>%
+    filter(!is.na(niveau_avt_dc_dev)) %>%
+    group_by(niveau_avt_dc_dev) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_avt_dc_dev)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot1 <- ggplot(niveauDeveloppementAvantDC, aes(x = "", y = pct, fill = niveau_avt_dc_dev)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  niveauDeveloppementApresDC <- csv%>%
+    filter(!is.na(niveau_apr_dc_dev)) %>%
+    group_by(niveau_apr_dc_dev) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_apr_dc_dev)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot2 <- ggplot(niveauDeveloppementApresDC, aes(x = "", y = pct, fill = niveau_apr_dc_dev)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  return(plot_grid(plot1, plot2, labels=c("Niveau Developpement avant", "Niveau Developpement aprÔøΩs"), ncol = 2, nrow = 1))
+}
+
+# Analyse du niveau dÔøΩveloppement avant/aprÔøΩs.
+
+ComparerNiveauGestionProjetAvantApres <- function() {
+  niveauGestionProjetAvantDC <- csv%>%
+    filter(!is.na(niveau_avt_dc_gest)) %>%
+    group_by(niveau_avt_dc_gest) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_avt_dc_gest)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot1 <- ggplot(niveauGestionProjetAvantDC, aes(x = "", y = pct, fill = niveau_avt_dc_gest)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  niveauGestionProjetApresDC <- csv%>%
+    filter(!is.na(niveau_apr_dc_gest)) %>%
+    group_by(niveau_apr_dc_gest) %>%
+    summarise(nb = n()) %>%
+    mutate(pct = round(nb/sum(nb)*100)) %>%
+    arrange(desc(niveau_apr_dc_gest)) %>%
+    mutate(lab_ypos = cumsum(pct) - 0.5 * pct)
+
+  plot2 <- ggplot(niveauGestionProjetApresDC, aes(x = "", y = pct, fill = niveau_apr_dc_gest)) +
+    geom_bar(width = 1, stat = "identity", color = "white") +
+    coord_polar("y", start = 0) +
+    geom_text(aes(y = lab_ypos, label = pct), color = "white") +
+    scale_fill_manual(values = colors) +
+    theme_void()
+
+  return(plot_grid(plot1, plot2, labels=c("Niveau Gestion de Projet avant", "Niveau Gestion deProjet aprÔøΩs"), ncol = 2, nrow = 1))
+}
+
+# Call functions
+ComparerNiveauCreatifAvantApres()
+ComparerNiveauMarketingAvantApres()
+ComparerNiveauDeveloppementAvantApres()
+ComparerNiveauGestionProjetAvantApres()
