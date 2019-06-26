@@ -52,7 +52,13 @@ AnneeObtentionBac <- AnneeObtentionBac %>%
 #affichage goem bar annee obtention
 ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=freq)) + 
   geom_bar(stat = 'identity', width = 2, color = "#2AA4AC") +
-  geom_text(aes(label = freq), vjust = 1.5, size = 5)
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank()) +
+  ggtitle("Nombre d'étudiants en fonction de l'année d'obtention du bac") +
+  theme(plot.title = element_text(size = 15, face = "bold"))
+
+#ii b)
+#
 
 
 
