@@ -126,6 +126,15 @@ csv <- csv %>% mutate(formation_DC = ifelse(formation_DC == "Bacelor", "Bachelor
 csv <- csv %>% mutate(ville_formation_DC = ifelse(ville_formation_DC == "lyon", "Lyon",
                                                   ifelse(ville_formation_DC == "paris", "Paris", as.character(ville_formation_DC))))
 
+# Change formation_DC corrupted data.
+csv <- csv %>% mutate(formation_DC = ifelse(formation_DC == "Mastere", "Mast√®re"))
+
+# Change annee_debut_DC corrupted data.
+csv <- csv %>% mutate(annee_debut_DC = ifelse(annee_debut_DC == "2111", "2011"))
+
+# Change annee_fin_DC corrupted data.
+csv <- csv %>% mutate(annee_fin_DC = ifelse(annee_fin_DC == "2113", "2013"))
+
 # Delete annee_naissance = 1904
 temp_csv <- with(csv, (annee_naissance == "1904"))
 csv <- csv[!temp_csv, ]
@@ -145,13 +154,13 @@ head(csv)
 # init color theme.
 colors <- c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B")
 
+# Get current year from the system date and convert it to integer.
+currentYear <- strtoi(format(Sys.Date(), "%Y"))
+
 ############## SANDRA PART ##############
 ## PROFIL DES REPONDANTS ##
 
 ## AGE
-
-# Get current year from the system date and convert it to integer.
-currentYear <- strtoi(format(Sys.Date(), "%Y"))
 
 # Calcul de l'‚ge rÈel et stockage du rÈsultat dans une nouvelle colonne
 csv$age <- currentYear - csv$annee_naissance
@@ -210,7 +219,14 @@ ggplot(genre_data, aes(x="", y=nb, fill=genre))+
 ## NATIONALITE
 plot_ly(data = csv, x=~nationalite,type="histogram")
 
+## FREE PART
+## AGE VS TYPE DE FORMATION SUIVIE
+age_type_bac <- ggplot(csv) + geom_bar(aes(x = age, fill = type_bac))
+age_type_bac
 
+## GENRE VS TYPE DE FORMATION SUIVIE
+genre_type_bac <- ggplot(csv) + geom_bar(aes(x = genre, fill = type_bac))
+genre_type_bac
 
 ########## REMI PART ##########
 
@@ -468,3 +484,20 @@ ggplot(data = anneeFin, aes(x=annee_fin_DC, y=n)) +
         axis.title.y = element_blank()) +
   ggtitle("Nombre d'Ètudiants en fonction de l'annÈe de fin de formation") +
   theme(plot.title = element_text(size = 12, face = "bold"))
+
+############## REMI + SANDRA PART ##############
+
+# Tests de Khi 2
+chisq.test(csv$genre,csv$type_bac) # p-value = 0.8903
+chisq.test(csv$type_bac,csv$spe) # p-value = 0.6932
+chisq.test(csv$annee_dernier_diplome_avant_DC,csv$dernier_diplome_avant_dc) # p-value = 0.7241
+chisq.test(csv$annee_naissance,csv$salaire_embauche_apr_dc) # p-value = 0.07115
+chisq.test(csv$annee_naissance,csv$departement_travail) # p-value = 0.7926
+chisq.test(csv$annee_naissance,csv$annee_dernier_diplome_avant_DC) # p-value = 0.1434
+
+# Tests de Student
+t.test(csv$age ~ csv$genre) # p-value = 0.8035
+t.test(csv$age ~ csv$recherche_emploi_apr_dc) # p-value = 0.4518
+t.test(csv$age ~ csv$emploi_priv_pub) # p-value = 0.8471
+t.test(csv$age ~ csv$change_ville_pr_emploi) # p-value = 0.3162
+t.test(csv$age ~ csv$spe_ok) # p-value = 0.7572
