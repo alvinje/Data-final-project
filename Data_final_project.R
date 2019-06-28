@@ -388,10 +388,10 @@ ComparerNiveauDeveloppementAvantApres()
 ComparerNiveauGestionProjetAvantApres()
 
 ############## PARCOURS PROFESSIONNEL ##############
-#Regroupe les types de bac en un dataframe
+# Regroupe les types de bac en un dataframe
 typeBac <- data.frame(csv[,9])
 
-#compte le nombre de chaque type de bac
+# Compte le nombre de chaque type de bac
 typeBac <- csv %>%
   group_by(type_bac)%>%
   summarise(nb = n())%>%
@@ -399,13 +399,13 @@ typeBac <- csv %>%
   arrange(desc(type_bac))%>%
   mutate(lab_ypos = cumsum(pct) - 0.5*pct)
 
-#graphe avec type de bac
+# Graphe avec type de bac
 tb <- ggplot(typeBac, aes(x="", y=nb, fill=type_bac))+
 geom_bar(width = 1, stat = "identity", color = "white")
 
 # Affichage en camembert pour que ce soit plus parlant
-# on peut considerer les resultats comme des pourcentages
-# comme le total est egal a 100
+# On peut considerer les resultats comme des pourcentages
+# Comme le total est egal a 100
 
 tb + coord_polar("y", start=0) +
   geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
@@ -414,14 +414,14 @@ tb + coord_polar("y", start=0) +
   theme_void(
   )
 
-#II Annee d'obtention du BAC
-#impossible de savoir precisemment quand ils ont eu leur bac
-#alors on va considerer qu'ils l'ont eu a 18 ans
+# Annee d'obtention du BAC
+# Impossible de savoir precisemment quand ils ont eu leur bac
+# Alors on va considerer qu'ils l'ont eu a 18 ans
 AnneeObtentionBac <-  data.frame(csv$annee_naissance + 18)
 
 names(AnneeObtentionBac)[1] <- "annee_obtention"
 
-#calcul du nombre de personne ayant obtenu le bac la meme annee
+# Calcul du nombre de personne ayant obtenu le bac la meme annee
 AnneeObtentionBac <- AnneeObtentionBac %>%
   group_by(annee_obtention)%>%
   count()
@@ -434,14 +434,13 @@ ggplot(data = AnneeObtentionBac, aes(x=annee_obtention, y=n)) +
   ggtitle("Nombre d'?tudiants en fonction de l'ann?e d'obtention du bac") +
   theme(plot.title = element_text(size = 15, face = "bold"))
 
-#II b)
-#i Parcours DC, type de formation suivie
+# Parcours DC, type de formation suivie
 
-#calcul du nombre de personnes en fonction du type de formation
+# Calcul du nombre de personnes en fonction du type de formation
 typeFormation <- csv %>%
   group_by(formation_DC)%>%
   count()
-#affichage goem bar type formation
+# Affichage goem bar type formation
 ggplot(data = typeFormation, aes(x=formation_DC, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
@@ -449,14 +448,14 @@ ggplot(data = typeFormation, aes(x=formation_DC, y=n)) +
   ggtitle("Nombre d'?tudiants en fonction du type de formation suivie ? Digital Campus") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
-#ii Ville de formation
+# Ville de formation
 
-#calcul du nombre de personnes en fonction du type de formation
+# Calcul du nombre de personnes en fonction du type de formation
 villeFormation <- csv %>%
   group_by(ville_formation_DC)%>%
   count()
 
-#affichage goem bar type formation
+# Affichage goem bar type formation
 ggplot(data = villeFormation, aes(x=ville_formation, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
@@ -464,13 +463,13 @@ ggplot(data = villeFormation, aes(x=ville_formation, y=n)) +
   ggtitle("Nombre d'?tudiants en fonction de la ville de formation DC") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
-#iii Annee de debut de formation
+# Annee de debut de formation
 
-#calcul du nombre de personnes en fonction du type de formation
+# Calcul du nombre de personnes en fonction du type de formation
 anneeDebut <- csv %>%
   group_by(annee_debut_DC)%>%
   count()
-#affichage goem bar type formation
+# Affichage goem bar type formation
 ggplot(data = anneeDebut, aes(x=annee_debut_DC, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
@@ -478,13 +477,13 @@ ggplot(data = anneeDebut, aes(x=annee_debut_DC, y=n)) +
   ggtitle("Nombre d'?tudiants en fonction de l'ann?e de d?but de formation") +
   theme(plot.title = element_text(size = 12, face = "bold"))
 
-#iv Annee de fin de formation
+# Annee de fin de formation
 
-#calcul du nombre de personnes en fonction du type de formation
+# Calcul du nombre de personnes en fonction du type de formation.
 anneeFin <- csv %>%
   group_by(annee_fin_DC)%>%
   count()
-#affichage goem bar type formation
+# Affichage goem bar type formation.
 ggplot(data = anneeFin, aes(x=annee_fin_DC, y=n)) +
   geom_bar(stat = 'identity', width = 1, fill = "#2AA4AC", color = '#ffffff') +
   theme(axis.title.x = element_blank(),
@@ -525,7 +524,7 @@ SP + coord_polar("y", start=0) +
   scale_fill_manual(values = colors) +
   theme_void()
 
-#Departement travail
+# Departement travail
 situation <- csv %>%
   group_by(departement_travail)%>%
   summarise(nb = n())%>%
