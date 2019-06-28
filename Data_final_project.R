@@ -153,7 +153,9 @@ head(csv)
 
 
 # init color theme.
-colors <- c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B")
+colors <- c("#2AA4AC", "#8ED1D6", "#69AFBD", "#317279", "#44959B",
+            "#2AA4AD", "#8ED2D6", "#68AFBD", "#337279", "#48959B",
+            "#2AA4BC", "#8ED2D6", "#69CFBD")
 
 # Get current year from the system date and convert it to integer.
 currentYear <- strtoi(format(Sys.Date(), "%Y"))
@@ -233,7 +235,7 @@ geom_bar(aes(x = genre, fill = type_bac))+
 scale_fill_manual(values = colors) +
 theme_void()
 
-########## ANALYSE PARCOURS SCOLAIRE ##########
+########## ANALYSE EXPERIENCE SCOLAIRE ##########
 
 # Analyse du niveau creatif avant/apres.
 
@@ -271,7 +273,7 @@ ComparerNiveauCreatifAvantApres <- function() {
   return(plot_grid(plot1, plot2, labels=c("Niveau cr?atif avant", "Niveau cr?atif apr?s"), ncol = 2, nrow = 1))
 }
 
-# Analyse du niveau Marketing et communication avant/apr?s.
+# Analyse du niveau Marketing et communication avant/après.
 
 ComparerNiveauMarketingAvantApres <- function() {
   niveauMarketingAvantDC <- csv%>%
@@ -489,6 +491,52 @@ ggplot(data = anneeFin, aes(x=annee_fin_DC, y=n)) +
         axis.title.y = element_blank()) +
   ggtitle("Nombre d'?tudiants en fonction de l'ann?e de fin de formation") +
   theme(plot.title = element_text(size = 12, face = "bold"))
+
+############## POST SCOLAIRE ##############
+# Salaire
+salaires <- csv %>%
+  group_by(tranche_salaire)%>%
+  summarise(nb = n())%>%
+  mutate(pct = round(nb/sum(nb)*100)) %>%
+  arrange(desc(tranche_salaire))%>%
+  mutate(lab_ypos = cumsum(pct) - 0.5*pct)
+
+ggplot(salaires, aes(x="", y=nb, fill=tranche_salaire)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start=0)+
+  scale_fill_manual(values = colors)
+
+
+# Situation pro
+
+situationPro <- csv %>%
+  group_by(situation_pro)%>%
+  summarise(nb = n())%>%
+  mutate(pct = round(nb/sum(nb)*100)) %>%
+  arrange(desc(situation_pro))%>%
+  mutate(lab_ypos = cumsum(pct) - 0.5*pct)
+
+SP <- ggplot(situationPro, aes(x="", y=nb, fill=situation_pro))+
+  geom_bar(width = 1, stat = "identity", color = "white")
+
+SP + coord_polar("y", start=0) +
+  geom_text(aes(y = lab_ypos, label = paste0(pct,'%')), color = "white") +
+  labs(fill = "Situations professionelles") + labs(x = "") + labs(y = "") +
+  scale_fill_manual(values = colors) +
+  theme_void()
+
+#Departement travail
+situation <- csv %>%
+  group_by(departement_travail)%>%
+  summarise(nb = n())%>%
+  mutate(pct = round(nb/sum(nb)*100)) %>%
+  arrange(desc(departement_travail))%>%
+  mutate(lab_ypos = cumsum(pct) - 0.5*pct)
+
+ggplot(situation, aes(x="", y=nb, fill=departement_travail)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  scale_fill_manual(values = colors) + 
+  coord_polar("y", start=0)
 
 ############## ANALYSES STATISTIQUES ##############
 

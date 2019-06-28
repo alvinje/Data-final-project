@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6e521c2-a51d-40e7-8936-47e1d948c705" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Data_final_project.R" beforeDir="false" afterPath="$PROJECT_DIR$/Data_final_project.R" afterDir="false" />
-    </list>
+    <list default="true" id="d6e521c2-a51d-40e7-8936-47e1d948c705" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,7 +12,7 @@
     <session id="-842521230">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.opened" value="3" />
@@ -48,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data_final_project.R">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="349" column="10" selection-start-line="349" selection-start-column="10" selection-end-line="349" selection-end-column="10" />
+            <state relative-caret-position="143">
+              <caret line="355" column="10" selection-start-line="355" selection-start-column="10" selection-end-line="355" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -127,12 +125,12 @@
       <updated>1559908252993</updated>
       <workItem from="1559908254479" duration="2410000" />
       <workItem from="1561536569836" duration="21000" />
-      <workItem from="1561543042620" duration="3429000" />
+      <workItem from="1561543042620" duration="4026000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5993000" />
+    <option name="totallyTimeSpent" value="6590000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -171,8 +169,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Data_final_project.R">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="349" column="10" selection-start-line="349" selection-start-column="10" selection-end-line="349" selection-end-column="10" />
+        <state relative-caret-position="143">
+          <caret line="355" column="10" selection-start-line="355" selection-start-column="10" selection-end-line="355" selection-end-column="10" />
         </state>
       </provider>
     </entry>
